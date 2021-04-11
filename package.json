@@ -1,0 +1,17 @@
+{
+  "name": "mobile-fight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run:client": "cd packages/client && npm run start",
+    "run:server:tsc": "cd packages/server && npm run tsc:watch",
+    "run:server:dev": "cd packages/server && npm run dev",
+    "build:typings": "cd packages/types && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}

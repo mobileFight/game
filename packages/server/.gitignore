@@ -1,0 +1,4 @@
+/node_modules
+/lib
+/src/db/database.sqlite
+/dist

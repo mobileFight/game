@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "1111111",
+    "database": "mobileFight",
+    "dialect": "sqlite",
+    "storage": "./db/database.sqlite"
+  }
+}
