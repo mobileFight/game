@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import { QuestStates } from "shared-types"
+import { QuestStates } from "@mobile-fight/types"
 import { useGate } from "effector-react"
 import { ArenaTemplate } from "@mobileFight/ui/templates"
 import { ArenaFooter, LocationPreview, SimpleScroll } from "@features/arena"

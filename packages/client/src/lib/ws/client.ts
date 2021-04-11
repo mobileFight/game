@@ -3,6 +3,8 @@
 import { wsClosed, wsFailed } from "./events"
 import { DeferredType, defer } from "./defer"
 
+// TODO: Не много не то
+// Переделал на свежую версию без багов - нужно пушнуть
 export class WSClient {
   id: number
 
@@ -12,17 +14,10 @@ export class WSClient {
 
   defaultError: Error
 
-  queue: Array<{ method: string; payload: unknown }>
-
   constructor() {
     this.id = 0
     this.requestMap = new Map()
     this.defaultError = new Error("some socket error")
-    this.queue = []
-  }
-
-  handleWsOpen() {
-    this.queue.forEach(({ method, payload }) => this.send(method, payload))
   }
 
   rejectAllRequests() {
@@ -37,11 +32,13 @@ export class WSClient {
     return new Promise((resolve, reject) => {
       this.close()
 
+      console.log("[ws]: try connect")
+
       this.connection = new WebSocket(url)
 
       this.connection.onopen = () => {
         resolve(true)
-        this.handleWsOpen()
+        console.log("[ws]: opened")
       }
 
       // @ts-ignore
@@ -65,6 +62,8 @@ export class WSClient {
         // @ts-ignore
         const { reqId } = parsedData
         const request = this.requestMap.get(reqId)
+
+        console.log("[ws]: message", { parsedData })
 
         if (request) {
           this.requestMap.delete(reqId)
@@ -104,14 +103,12 @@ export class WSClient {
       payload: payload ?? {},
     }
 
+    console.log("[ws]: send", { message })
+
     // @ts-ignore
     this.requestMap.set(reqId, request)
 
     switch (this.connection?.readyState) {
-      case WebSocket.CONNECTING:
-        this.queue.push({ method, payload })
-        break
-
       case WebSocket.OPEN: {
         setImmediate(() => {
           if (this.connection) {

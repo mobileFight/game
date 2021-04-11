@@ -23,7 +23,7 @@ function Main() {
   useEffect(() => {
     const id = setTimeout(() => {
       connectToWs({ url: "ws://localhost:3001" })
-    }, 2000)
+    }, 1000)
 
     return () => {
       clearTimeout(id)

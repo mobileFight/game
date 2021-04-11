@@ -1,4 +1,4 @@
-import { QuestStates } from "shared-types"
+import { QuestStates } from "@mobile-fight/types"
 import { DefaultTheme } from "styled-components"
 
 export const lightTheme: DefaultTheme = {

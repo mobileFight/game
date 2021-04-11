@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { QuestStates } from "shared-types"
+import { QuestStates } from "@mobile-fight/types"
 import { ArenaTemplate } from "@mobileFight/ui/templates"
 import { ArenaFooter } from "@features/arena"
 import { List } from "@features/common"
