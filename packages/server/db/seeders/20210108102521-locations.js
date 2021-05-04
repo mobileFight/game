@@ -34,7 +34,7 @@ module.exports = {
         build({
           id: 4,
           name: "Location 4",
-          children: "",
+          children: "1",
         }),
       ],
       {},

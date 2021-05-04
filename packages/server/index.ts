@@ -70,6 +70,6 @@ sequelize.authenticate().then(async () => {
   registerRoutes()
 
   app.listen(3001, () => {
-    debug("server run! on port - 3000")
+    debug("server run! on port - 3001")
   })
 })

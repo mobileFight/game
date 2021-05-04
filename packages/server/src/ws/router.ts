@@ -1,7 +1,6 @@
+import { compose } from "ramda"
 import { WsRequest } from "./types"
 import { ClientSession } from "./clients"
-
-import { compose } from "ramda"
 
 type Params = { req: WsRequest; session: ClientSession }
 type Handler = <T>(arg0: Params) => T
