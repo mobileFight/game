@@ -9,6 +9,8 @@ const PreviewWrapper = styled.div<{ locationImage: string }>`
   background-size: contain;
   background-position: 38px 49px;
   background-size: 438px;
+  min-width: 438px;
+  min-height: 328px;
   background-image: url(${(props) => props.locationImage});
 
   > img {

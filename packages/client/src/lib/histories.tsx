@@ -13,7 +13,7 @@ export type HistoryContext = {
 export const RoutersHistoryContext = createContext<HistoryContext>({})
 
 export const routePaths = {
-  location: "/",
+  location: "/location/:id",
   chat: "/chat",
   hunting_list: "/hunting-list",
   duels: "/duels",

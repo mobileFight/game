@@ -1,11 +1,15 @@
 import { createEffect, forward, restore } from "effector"
 import { createGate } from "effector-react"
-import { getLocation } from "@features/arena"
+import { getLocation, LocationResponce } from "@features/arena"
+import { attachPendingModal } from "@features/common"
 
-export const gate = createGate<number>()
+export const gate = createGate<string>()
 
-export const loadLocationFx = createEffect<number, unknown>().use(getLocation)
+const loadLocationFx = createEffect<string, LocationResponce>().use(getLocation)
 
 export const $location = restore(loadLocationFx.doneData, null)
+export const $pending = loadLocationFx.pending
 
-forward({ from: gate.open, to: loadLocationFx })
+forward({ from: gate.state, to: loadLocationFx })
+
+attachPendingModal(loadLocationFx)

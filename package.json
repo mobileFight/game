@@ -7,7 +7,7 @@
     "run:client": "cd packages/client && npm run start",
     "run:server:tsc": "cd packages/server && npm run tsc:watch",
     "run:server:dev": "cd packages/server && npm run dev",
-    "build:typings": "cd packages/types && npm run build"
+    "build:typings": "cd packages/typings && npm run build"
   },
   "author": "",
   "license": "ISC",

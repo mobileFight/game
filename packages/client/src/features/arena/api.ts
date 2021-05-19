@@ -1,7 +1,18 @@
+import { Location } from "@mobile-fight/typings"
 import { socketClient } from "@lib/ws"
 
-export async function getLocation(locationId: number) {
-  const data = await socketClient.send("get.location", { locationId })
+export type LocationResponce = {
+  location: Location
+  children: Location[]
+}
 
-  return data
+export async function getLocation(locationId: string) {
+  const data = await socketClient.send<{ payload: LocationResponce }>(
+    "get.location",
+    {
+      locationId,
+    },
+  )
+
+  return data.payload
 }

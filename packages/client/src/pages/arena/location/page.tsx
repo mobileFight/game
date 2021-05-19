@@ -1,14 +1,16 @@
-import React, { useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
-import { QuestStates } from "@mobile-fight/types"
-import { useGate } from "effector-react"
+import { QuestStates } from "@mobile-fight/typings"
+import { useParams } from "react-router"
+import { useGate, useStore } from "effector-react"
 import { ArenaTemplate } from "@mobileFight/ui/templates"
+import { Loader } from "@mobileFight/ui/organisms"
 import { ArenaFooter, LocationPreview, SimpleScroll } from "@features/arena"
 import { List } from "@features/common"
 import { Button, spriteIcon, Separator } from "@mobileFight/ui/atoms"
 import locationPreview from "@assets/location.jpg"
 import { useMemoryNavigator, routePaths } from "@lib/histories"
-import { gate } from "./model"
+import { gate, $location } from "./model"
 
 const HuntingButtonsWrapper = styled.div`
   display: flex;
@@ -78,15 +80,21 @@ function renderQuestsCounter(counter: number, questType: QuestStates) {
 
 export function LocationPage() {
   const navigation = useMemoryNavigator()
+  const { id } = useParams() as { id: string }
+  const location = useStore($location)
 
-  useGate(gate, 1)
+  useGate(gate, id)
+
+  if (!location) {
+    return null
+  }
 
   return (
     <ArenaTemplate footer={<ArenaFooter />}>
       <>
         <LocationPreview
           locationImage={locationPreview}
-          locationName="Школа Воинов"
+          locationName={location.location.name}
         />
         <HuntingButtonsWrapper>
           <Button
@@ -126,18 +134,22 @@ export function LocationPage() {
               </LocationItem>
               <Separator w="86%" />
               <List
-                extracKey={(it) => it}
-                data={locations}
-                renderRow={(location, index) => (
+                extracKey={(it) => it.id.toString()}
+                data={location.children}
+                renderRow={(it, index) => (
                   <>
-                    <LocationItem>
+                    <LocationItem
+                      onClick={() => {
+                        navigation.navigate(`/location/${it.id}`)
+                      }}
+                    >
                       <LocationItemLeftIcon>
                         <spriteIcon.component
                           icon={spriteIcon.indexes.location.pointer}
                           type="location"
                         />
                       </LocationItemLeftIcon>
-                      {location}
+                      {it.name}
                     </LocationItem>
                     {index < locations.length - 1 && <Separator w="86%" />}
                   </>

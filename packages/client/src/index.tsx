@@ -14,7 +14,7 @@ import { GlobalStyles } from "./global-styles"
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
-const initialEntry = routePaths.location
+const initialEntry = routePaths.location.replace(":id", "1")
 const initialThemes = { lightTheme }
 
 function Main() {

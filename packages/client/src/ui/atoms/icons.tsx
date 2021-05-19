@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { EquipmentsScheme } from "@mobile-fight/types"
+import { EquipmentsScheme } from "@mobile-fight/typings"
 import icons from "@assets/sprites/icons.png"
 import { ifProp } from "@lib/styled-component-layout"
 

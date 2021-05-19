@@ -40,7 +40,7 @@
     "react-scripts": "^4.0.1",
     "styled-components": "^4.3.2",
     "styled-normalize": "^8.0.6",
-    "@mobile-fight/types": "^1.0.0"
+    "@mobile-fight/typings": "^1.0.0"
   },
   "devDependencies": {
     "@atomix/eslint-config-react": "^8.0.0",

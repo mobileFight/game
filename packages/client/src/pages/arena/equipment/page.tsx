@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import { EquipmentsScheme } from "@mobile-fight/types"
+import { EquipmentsScheme } from "@mobile-fight/typings"
 import { ArenaTemplate } from "@mobileFight/ui/templates"
 import { ArenaFooter } from "@features/arena"
 import { H3, spriteIcon } from "@mobileFight/ui/atoms"

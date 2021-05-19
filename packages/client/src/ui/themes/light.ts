@@ -1,4 +1,4 @@
-import { QuestStates } from "@mobile-fight/types"
+import { QuestStates } from "@mobile-fight/typings"
 import { DefaultTheme } from "styled-components"
 
 export const lightTheme: DefaultTheme = {
