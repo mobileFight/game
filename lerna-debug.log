@@ -1,0 +1,12 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   scope: '@mobile-fight/client',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'node_modules/.bin/lerna',
+0 silly argv   pkg: '@pixi-spine/all-3.7'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath /Users/dmitryshelomanov/mobfight
+3 error Error: 404 Not Found - GET https://registry.npmjs.org/@pixi-spine%2fall-3.7 - Not found
+3 error     at /Users/dmitryshelomanov/mobfight/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15

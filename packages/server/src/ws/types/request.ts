@@ -1,3 +1,3 @@
-import { GetLocationParams } from "./location"
+import { GetLocationParams, PveUserAttackParams } from "./location"
 
-export type WsRequest = GetLocationParams
+export type WsRequest = GetLocationParams | PveUserAttackParams

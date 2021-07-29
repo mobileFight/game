@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run:client": "cd packages/client && npm run start",
-    "run:server:tsc": "cd packages/server && npm run tsc:watch",
-    "run:server:dev": "cd packages/server && npm run dev",
+    "client:dev": "cd packages/client && npm run start",
+    "server:tsc": "cd packages/server && npm run tsc:watch",
+    "server:dev": "cd packages/server && npm run dev",
     "build:typings": "cd packages/typings && npm run build"
   },
   "author": "",

@@ -14,6 +14,7 @@ import { ProductsPage } from "./arena/market/products/page"
 import { HeroEquipmentPage } from "./arena/equipment/page"
 import { QuestsListPage } from "./arena/quests-list/page"
 import { ChatPage } from "./chat/page"
+import { PVEPage } from "./pve"
 
 export function ArenaRoutes() {
   return (
@@ -26,6 +27,7 @@ export function ArenaRoutes() {
       <Route component={ProductsPage} path={routePaths.products} />
       <Route component={HeroEquipmentPage} path={routePaths.equipment} />
       <Route component={QuestsListPage} path={routePaths.quests} />
+      <Route component={PVEPage} path={routePaths.pve} />
     </Switch>
   )
 }

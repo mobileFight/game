@@ -1,0 +1,315 @@
+{
+  "frames": {
+    "face-common.png": {
+      "frame": {
+        "x": 5,
+        "y": 5,
+        "w": 28,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 36
+      }
+    },
+    "flag1.png": {
+      "frame": {
+        "x": 43,
+        "y": 5,
+        "w": 70,
+        "h": 45
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 70,
+        "h": 45
+      },
+      "sourceSize": {
+        "w": 70,
+        "h": 45
+      }
+    },
+    "flag2.png": {
+      "frame": {
+        "x": 123,
+        "y": 5,
+        "w": 74,
+        "h": 44
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 74,
+        "h": 44
+      },
+      "sourceSize": {
+        "w": 74,
+        "h": 44
+      }
+    },
+    "flag3.png": {
+      "frame": {
+        "x": 207,
+        "y": 5,
+        "w": 62,
+        "h": 59
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 59
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 59
+      }
+    },
+    "hand-shield.png": {
+      "frame": {
+        "x": 279,
+        "y": 5,
+        "w": 22,
+        "h": 28
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 28
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 28
+      }
+    },
+    "hand-to-attack.png": {
+      "frame": {
+        "x": 311,
+        "y": 5,
+        "w": 45,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 45,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 45,
+        "h": 32
+      }
+    },
+    "hand-weapon.png": {
+      "frame": {
+        "x": 366,
+        "y": 5,
+        "w": 20,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 20,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 20,
+        "h": 24
+      }
+    },
+    "hand-common.png": {
+      "frame": {
+        "x": 396,
+        "y": 5,
+        "w": 32,
+        "h": 51
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 51
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 51
+      }
+    },
+    "legs-attacked.png": {
+      "frame": {
+        "x": 438,
+        "y": 5,
+        "w": 46,
+        "h": 29
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 46,
+        "h": 29
+      },
+      "sourceSize": {
+        "w": 46,
+        "h": 29
+      }
+    },
+    "legs-common.png": {
+      "frame": {
+        "x": 494,
+        "y": 5,
+        "w": 36,
+        "h": 35
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 35
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 35
+      }
+    },
+    "shield-opened.png": {
+      "frame": {
+        "x": 540,
+        "y": 5,
+        "w": 70,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 70,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 70,
+        "h": 70
+      }
+    },
+    "shoes-attacked.png": {
+      "frame": {
+        "x": 620,
+        "y": 5,
+        "w": 59,
+        "h": 21
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 59,
+        "h": 21
+      },
+      "sourceSize": {
+        "w": 59,
+        "h": 21
+      }
+    },
+    "shoes-common.png": {
+      "frame": {
+        "x": 689,
+        "y": 5,
+        "w": 55,
+        "h": 10
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 55,
+        "h": 10
+      },
+      "sourceSize": {
+        "w": 55,
+        "h": 10
+      }
+    },
+    "tource-common.png": {
+      "frame": {
+        "x": 754,
+        "y": 5,
+        "w": 62,
+        "h": 74
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 74
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 74
+      }
+    },
+    "weapon.png": {
+      "frame": {
+        "x": 826,
+        "y": 5,
+        "w": 102,
+        "h": 22
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 102,
+        "h": 22
+      },
+      "sourceSize": {
+        "w": 102,
+        "h": 22
+      }
+    }
+  },
+  "meta": {
+    "app": "http://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "hero.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 933,
+      "h": 84
+    },
+    "scale": "1"
+  }
+}

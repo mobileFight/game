@@ -3,7 +3,6 @@ import styled from "styled-components"
 
 const ArenaTemplateWrapper = styled.div`
   display: flex;
-  width: 100vw;
   height: 100vh;
   flex-direction: column;
   position: relative;
@@ -20,7 +19,6 @@ const ArenaTemplateInner = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   height: 100%;
-  overflow: scroll;
   justify-content: center;
 `
 
@@ -29,6 +27,8 @@ const FooterWrapper = styled.div`
   max-width: ${(props) => props.theme.screenSize.width}px;
   width: 100vw;
   align-self: center;
+  position: sticky;
+  bottom: 0px;
 `
 
 export function ArenaTemplate({
@@ -44,6 +44,16 @@ export function ArenaTemplate({
         <ArenaTemplateInner>{children}</ArenaTemplateInner>
       </ContentWrapper>
       {footer && <FooterWrapper>{footer}</FooterWrapper>}
+    </ArenaTemplateWrapper>
+  )
+}
+
+export function FightTemplate({ children }: { children: React.ReactNode }) {
+  return (
+    <ArenaTemplateWrapper>
+      <ContentWrapper>
+        <ArenaTemplateInner>{children}</ArenaTemplateInner>
+      </ContentWrapper>
     </ArenaTemplateWrapper>
   )
 }

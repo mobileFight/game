@@ -25,6 +25,7 @@ export const routePaths = {
     login: "/join/login",
     registtation: "/join/registtation",
   },
+  pve: "/pve",
 }
 
 export function useRouterHistories() {

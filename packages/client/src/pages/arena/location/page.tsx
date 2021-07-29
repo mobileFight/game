@@ -4,7 +4,6 @@ import { QuestStates } from "@mobile-fight/typings"
 import { useParams } from "react-router"
 import { useGate, useStore } from "effector-react"
 import { ArenaTemplate } from "@mobileFight/ui/templates"
-import { Loader } from "@mobileFight/ui/organisms"
 import { ArenaFooter, LocationPreview, SimpleScroll } from "@features/arena"
 import { List } from "@features/common"
 import { Button, spriteIcon, Separator } from "@mobileFight/ui/atoms"
@@ -65,15 +64,6 @@ const QuestsCounter = styled.span<{ questType: QuestStates }>`
   color: ${(props) => props.theme.colors.quests[props.questType]};
 `
 
-const locations = [
-  "Тракт",
-  "Забкое Ущелье",
-  "Поместьме Раввика",
-  "Слободка",
-  "Коллектор",
-  "Верхний Город",
-]
-
 function renderQuestsCounter(counter: number, questType: QuestStates) {
   return <QuestsCounter questType={questType}>{counter}</QuestsCounter>
 }
@@ -85,80 +75,80 @@ export function LocationPage() {
 
   useGate(gate, id)
 
-  if (!location) {
-    return null
-  }
-
   return (
     <ArenaTemplate footer={<ArenaFooter />}>
-      <>
-        <LocationPreview
-          locationImage={locationPreview}
-          locationName={location.location.name}
-        />
-        <HuntingButtonsWrapper>
-          <Button
-            primary
-            onClick={() => {
-              navigation.navigate(routePaths.hunting_list)
-            }}
-          >
-            Охота
-          </Button>
-          <Button
-            primary
-            onClick={() => {
-              navigation.navigate(routePaths.duels)
-            }}
-          >
-            Дуэли
-          </Button>
-        </HuntingButtonsWrapper>
-        <LocationsWrapper>
-          <SimpleScroll>
-            <LocationBody>
-              <LocationItem
-                onClick={() => {
-                  navigation.navigate(routePaths.quests)
-                }}
-              >
-                <LocationItemLeftIcon>
-                  <spriteIcon.component
-                    icon={spriteIcon.indexes.location.quest}
-                    type="location"
-                  />
-                </LocationItemLeftIcon>
-                Задания ({renderQuestsCounter(1, QuestStates.active)}/
-                {renderQuestsCounter(2, QuestStates.available)}/
-                {renderQuestsCounter(0, QuestStates.completed)})
-              </LocationItem>
-              <Separator w="86%" />
-              <List
-                extracKey={(it) => it.id.toString()}
-                data={location.children}
-                renderRow={(it, index) => (
-                  <>
-                    <LocationItem
-                      onClick={() => {
-                        navigation.navigate(`/location/${it.id}`)
-                      }}
-                    >
-                      <LocationItemLeftIcon>
-                        <spriteIcon.component
-                          icon={spriteIcon.indexes.location.pointer}
-                          type="location"
-                        />
-                      </LocationItemLeftIcon>
-                      {it.name}
-                    </LocationItem>
-                    {index < locations.length - 1 && <Separator w="86%" />}
-                  </>
-                )}
-              />
-            </LocationBody>
-          </SimpleScroll>
-        </LocationsWrapper>
-      </>
+      {location && (
+        <>
+          <LocationPreview
+            locationImage={locationPreview}
+            locationName={location.location.name}
+          />
+          <HuntingButtonsWrapper>
+            <Button
+              primary
+              onClick={() => {
+                navigation.navigate(routePaths.hunting_list)
+              }}
+            >
+              Охота
+            </Button>
+            <Button
+              primary
+              onClick={() => {
+                navigation.navigate(routePaths.duels)
+              }}
+            >
+              Дуэли
+            </Button>
+          </HuntingButtonsWrapper>
+          <LocationsWrapper>
+            <SimpleScroll>
+              <LocationBody>
+                <LocationItem
+                  onClick={() => {
+                    navigation.navigate(routePaths.quests)
+                  }}
+                >
+                  <LocationItemLeftIcon>
+                    <spriteIcon.component
+                      icon={spriteIcon.indexes.location.quest}
+                      type="location"
+                    />
+                  </LocationItemLeftIcon>
+                  Задания ({renderQuestsCounter(1, QuestStates.active)}/
+                  {renderQuestsCounter(2, QuestStates.available)}/
+                  {renderQuestsCounter(0, QuestStates.completed)})
+                </LocationItem>
+                <Separator w="86%" />
+                <List
+                  extracKey={(it) => it.id.toString()}
+                  data={location.children}
+                  renderRow={(it, index) => (
+                    <>
+                      <LocationItem
+                        onClick={() => {
+                          navigation.navigate(`/location/${it.id}`)
+                        }}
+                      >
+                        <LocationItemLeftIcon>
+                          <spriteIcon.component
+                            icon={spriteIcon.indexes.location.pointer}
+                            type="location"
+                          />
+                        </LocationItemLeftIcon>
+                        {it.name}
+                      </LocationItem>
+                      {index < location.children.length - 1 && (
+                        <Separator w="86%" />
+                      )}
+                    </>
+                  )}
+                />
+              </LocationBody>
+            </SimpleScroll>
+          </LocationsWrapper>
+        </>
+      )}
     </ArenaTemplate>
   )
 }

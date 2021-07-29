@@ -33,12 +33,16 @@ export default function createSessionsModel(sequelize: Sequelize) {
     sessions.hasOne(models.users)
   }
 
-  sessions.getSessionByToken = (token) => {
-    return sessions.findOne({
-      where: {
-        token,
-      },
-    })
+  sessions.getSessionByToken = async (token) => {
+    const session = sessions
+      .findOne({
+        where: {
+          token,
+        },
+      })
+      .then((it) => it || null)
+
+    return session
   }
 
   return sessions

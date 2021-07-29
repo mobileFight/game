@@ -10,9 +10,9 @@ type Route3 = <R, R1, R2>(
   h1: (arg0: Params) => R,
   h2: (arg0: R) => R1,
   h3?: (arg0: R1) => R2,
-) => void
+) => WsRouter
 
-class WsRouter {
+export class WsRouter {
   routes = new Map<string, Handler>()
 
   addRoute: Route3 = (route, ...handlers) => {
@@ -20,6 +20,8 @@ class WsRouter {
     const handler = compose(...handlers.filter(Boolean).reverse())
 
     this.routes.set(route, handler as Handler)
+
+    return this
   }
 
   releaseHandler(req: WsRequest, session: ClientSession) {

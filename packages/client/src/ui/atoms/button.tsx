@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components"
 import { ifProp } from "@lib/styled-component-layout"
 import okBtn from "@assets/ok-btn.png"
+import attackButon from "@assets/attackButton.png"
 import cancelBtn from "@assets/cancell-btn.png"
 
 const imagebleButtonMixin = () => css`
@@ -19,6 +20,8 @@ export const Button = styled.button<{
   primary?: boolean
   okBtn?: boolean
   cancelBtn?: boolean
+  attackButon?: boolean
+  disabled?: boolean
 }>`
   outline: none;
   border: none;
@@ -28,6 +31,14 @@ export const Button = styled.button<{
   transition: 0.4s;
   padding: 0;
   margin: 0;
+
+  ${ifProp(
+    "disabled",
+    css`
+      cursor: not-allowed;
+      opacity: 0.3 !important;
+    `,
+  )}
 
   ${ifProp(
     "minimal",
@@ -70,6 +81,18 @@ export const Button = styled.button<{
       background-image: url(${cancelBtn});
 
       ${imagebleButtonMixin}
+    `,
+  )};
+
+  ${ifProp(
+    "attackButon",
+    css`
+      background-image: url(${attackButon});
+
+      ${imagebleButtonMixin}
+      width: 77px !important;
+      height: 77px;
+      background-position-x: -10px;
     `,
   )};
 `

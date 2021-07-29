@@ -1,4 +1,5 @@
 import ws from "ws"
+import { createEffect } from "effector"
 import { WsRequest } from "./types"
 
 export type ClientSession = { token: string; userId: number }
@@ -51,19 +52,52 @@ export function buildResponse<T>(
   })
 }
 
+export function buildEvent<T>({ data, method }: { method: string; data: T }) {
+  return JSON.stringify({
+    isSuccess: true,
+    type: "event",
+    payload: data,
+    method,
+  })
+}
+
 export function sendMessageToClient({
   session,
   message,
 }: {
   session: ClientSession
   message: string
-}) {
-  const client = clients.get(session.token)
+}): Promise<true> {
+  return new Promise((res, rej) => {
+    const client = clients.get(session.token)
 
-  if (client.status === "connected") {
-    client.ws.send(message)
-  }
+    if (client.status === "connected") {
+      client.ws.send(message)
+      res(true)
+    }
+
+    rej(new Error("not delivered"))
+  })
 }
+
+export const sendMessageToClientFx = createEffect<
+  {
+    session: ClientSession
+    message: string
+  },
+  boolean
+>(({ session, message }) => {
+  return new Promise((res, rej) => {
+    const client = clients.get(session.token)
+
+    if (client.status === "connected") {
+      client.ws.send(message)
+      res(true)
+    }
+
+    rej(new Error("not delivered"))
+  })
+})
 
 export function broadcastMessage({ message }: { message: string }) {
   clients.forEach((client) => {

@@ -26,12 +26,16 @@
     "deploy": "npx gh-pages -d build"
   },
   "dependencies": {
-    "effector": "^20.17.2",
-    "effector-react": "^20.9.0",
+    "@mobile-fight/typings": "^1.0.0",
+    "@pixi-spine/all-3.8": "^3.0.4",
+    "effector": "^21.8.12",
+    "effector-react": "^21.3.3",
     "gh-pages": "^2.2.0",
     "history": "^4.10.1",
     "is-hotkey": "^0.1.6",
     "moment": "^2.24.0",
+    "pixi-spine": "^3.0.4",
+    "pixi.js": "^6.0.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-loader-spinner": "^3.1.14",
@@ -39,8 +43,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
     "styled-components": "^4.3.2",
-    "styled-normalize": "^8.0.6",
-    "@mobile-fight/typings": "^1.0.0"
+    "styled-normalize": "^8.0.6"
   },
   "devDependencies": {
     "@atomix/eslint-config-react": "^8.0.0",

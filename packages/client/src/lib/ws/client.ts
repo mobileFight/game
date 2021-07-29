@@ -1,16 +1,14 @@
 /* eslint-disable unicorn/prefer-add-event-listener */
 
-import { wsClosed, wsFailed } from "./events"
+import { receivedWsEvent, wsClosed, wsFailed, wsOpened } from "./events"
 import { DeferredType, defer } from "./defer"
 
-// TODO: Не много не то
-// Переделал на свежую версию без багов - нужно пушнуть
 export class WSClient {
   id: number
 
   connection: WebSocket | null | undefined
 
-  requestMap: Map<number, DeferredType<unknown>>
+  requestMap: Map<number, { request: DeferredType<unknown>; message: any }>
 
   defaultError: Error
 
@@ -20,123 +18,128 @@ export class WSClient {
     this.defaultError = new Error("some socket error")
   }
 
+  handleWsClose() {
+    this.rejectAllRequests()
+    wsClosed()
+  }
+
   rejectAllRequests() {
     const requests = [...this.requestMap.values()]
 
-    requests.forEach((request) => {
-      request.reject(new Error("SOCKET_NOT_OPENED"))
+    requests.forEach(({ request }) => {
+      request.reject(this.defaultError)
     })
+
+    this.requestMap = new Map()
   }
 
-  tryConnect(url: string): Promise<true> {
-    return new Promise((resolve, reject) => {
-      this.close()
+  tryConnect(url: string): void {
+    this.connection = new WebSocket(url)
 
-      console.log("[ws]: try connect")
+    this.connection.onopen = () => {
+      wsOpened()
+    }
 
-      this.connection = new WebSocket(url)
+    // @ts-ignore
+    this.connection.onerror = (error: Error) => {
+      this.connection?.close()
+      wsFailed(error)
+    }
 
-      this.connection.onopen = () => {
-        resolve(true)
-        console.log("[ws]: opened")
+    this.connection.onclose = () => {
+      this.handleWsClose()
+    }
+
+    this.connection.onmessage = ({ data }) => {
+      const parsedData = JSON.parse(String(data)) as {
+        type: string
+        isSuccess: boolean
+        method: string
+        payload: unknown
       }
-
       // @ts-ignore
-      this.connection.onerror = (error: Error) => {
-        reject(error)
-        wsFailed(error)
-        this.rejectAllRequests()
-      }
+      const { id } = parsedData
+      const { request } = this.requestMap.get(id) ?? {}
 
-      this.connection.onclose = (reason) => {
-        wsClosed()
-      }
+      console.log("WS: [onmessage]", {
+        parsedData,
+        hasRequest: Boolean(request),
+        isResult: parsedData.type === "result",
+      })
 
-      this.connection.onmessage = ({ data }) => {
-        const parsedData = JSON.parse(String(data)) as {
-          type: string
-          isSuccess: boolean
-          method: StorageManager
-          payload: unknown
+      if (request) {
+        this.requestMap.delete(id)
+
+        if (parsedData.type === "result" && parsedData.isSuccess) {
+          const { method, payload } = parsedData
+
+          // @ts-ignore
+          request.resolve({
+            method,
+            payload,
+          })
+
+          return
         }
+
+        if (parsedData.type === "result" && !parsedData.isSuccess) {
+          // @ts-ignore
+          request.reject(new Error(parsedData.error))
+
+          return
+        }
+
+        request.reject(this.defaultError)
+      }
+
+      if (parsedData.type === "event") {
         // @ts-ignore
-        const { reqId } = parsedData
-        const request = this.requestMap.get(reqId)
+        receivedWsEvent({
+          type: "event",
+          event: parsedData.method,
+          payload: parsedData.payload,
+        })
+      }
+    }
+  }
 
-        console.log("[ws]: message", { parsedData })
+  silentSend(request: DeferredType<any>, message: any) {
+    // @ts-ignore
+    this.requestMap.set(message.id, { request, message })
 
-        if (request) {
-          this.requestMap.delete(reqId)
-
-          if (parsedData.type === "result" && parsedData.isSuccess) {
-            const { method, payload } = parsedData
-
-            // @ts-ignore
-            request.resolve({
-              method,
-              payload,
+    setImmediate(() => {
+      switch (this.connection?.readyState) {
+        case WebSocket.OPEN: {
+          if (this.connection) {
+            console.log("WS: [send]", {
+              message,
             })
-
-            return
+            this.connection.send(JSON.stringify(message))
           }
 
-          if (parsedData.type === "result" && !parsedData.isSuccess) {
-            // @ts-ignore
-            request.reject(toApiError(parsedData.error))
+          break
+        }
 
-            return
-          }
-
+        default: {
           request.reject(this.defaultError)
         }
       }
     })
   }
 
-  send<Done>(method: string, payload: unknown): Done {
+  send<Done>(method: string, payload: unknown): Promise<Done> {
     const request = defer()
-    const reqId = ++this.id
+    const id = ++this.id
     const message = {
-      reqId,
+      id,
       method,
       version: 1,
       payload: payload ?? {},
     }
 
-    console.log("[ws]: send", { message })
-
-    // @ts-ignore
-    this.requestMap.set(reqId, request)
-
-    switch (this.connection?.readyState) {
-      case WebSocket.OPEN: {
-        setImmediate(() => {
-          if (this.connection) {
-            this.connection.send(JSON.stringify(message))
-          }
-        })
-
-        break
-      }
-
-      default: {
-        setImmediate(() => {
-          request.reject(new Error("SOCKET_NOT_OPENED"))
-        })
-      }
-    }
+    this.silentSend(request, message)
 
     // @ts-ignore
     return request.req
-  }
-
-  close() {
-    if (this.connection) {
-      this.connection.close()
-      this.rejectAllRequests()
-      this.requestMap = new Map()
-
-      wsClosed()
-    }
   }
 }

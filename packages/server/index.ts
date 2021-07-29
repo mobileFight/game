@@ -1,6 +1,8 @@
 import Koa from "koa"
 import websockify from "koa-websocket"
 import Debug from "debug"
+import serve from "koa-static"
+import cors from "koa-cors"
 import cookie from "cookie"
 import route from "koa-route"
 import models, { sequelize } from "./src/models"
@@ -8,16 +10,18 @@ import { clients, wsRouter, wsParser } from "./src/ws"
 import { registerRoutes } from "./src/ws-routes"
 
 const debug = Debug("mobileFight:index")
+const { NODE_ENV } = process.env
+const defaultToken = NODE_ENV !== "production" ? "test_token" : ""
 
 export const wsOptions = {
   verifyClient: async (info, done) => {
-    const { token = "test_token" } = cookie.parse(
+    const { token = defaultToken } = cookie.parse(
       info.req.headers["cookie"] ?? "",
     )
     const session = await models.sessions.getSessionByToken(token)
 
     if (session) {
-      info.req.data = { session }
+      info.req.data = { session: { ...session, token: token } }
       return done(true)
     }
 
@@ -26,6 +30,9 @@ export const wsOptions = {
 }
 
 const app = websockify(new Koa(), wsOptions)
+
+app.use(cors())
+app.use(serve("./src/assets"))
 
 app.ws.use(
   route.all("/", (ctx) => {

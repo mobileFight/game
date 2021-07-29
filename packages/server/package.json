@@ -18,10 +18,13 @@
   "homepage": "",
   "license": "ISC",
   "dependencies": {
+    "@mobile-fight/typings": "^1.0.0",
     "cookie": "^0.4.1",
     "debug": "^4.1.1",
+    "effector": "^21.8.12",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-cors": "^0.0.16",
     "koa-route": "^3.2.0",
     "koa-static": "^5.0.0",
     "koa-websocket": "^6.0.0",
@@ -31,8 +34,7 @@
     "sequelize": "^5.21.3",
     "sqlite3": "^4.1.1",
     "typescript": "^4.1.2",
-    "ws": "^7.4.2",
-    "@mobile-fight/typings": "^1.0.0"
+    "ws": "^7.4.2"
   },
   "devDependencies": {
     "@atomix/eslint-config": "^8.0.0",

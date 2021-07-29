@@ -1,6 +1,17 @@
 import { createEvent } from "effector"
 
-export const receivedWsEvent = createEvent<unknown>()
+export const receivedWsEvent = createEvent<
+  | {
+      type: "event"
+      event: "pve.bot.attack"
+      payload: any
+    }
+  | {
+      type: "event"
+      event: "test"
+      payload: string
+    }
+>()
 export const wsOpened = createEvent<void>()
 export const wsClosed = createEvent<void>()
 export const wsFailed = createEvent<Error>()

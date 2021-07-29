@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import { ArenaTemplate } from "@mobileFight/ui/templates"
 import { ArenaFooter, SimpleScroll } from "@features/arena"
@@ -6,6 +6,7 @@ import { List } from "@features/common"
 import { H3, Separator, Button } from "@mobileFight/ui/atoms"
 import mobPreview1 from "@assets/hunting-preview/1.png"
 import mobPreview2 from "@assets/hunting-preview/2.png"
+import { routePaths, useMemoryNavigator } from "@lib/histories"
 
 const mobs = [
   { title: "Гребняк", lvl: 2, img: mobPreview1 },
@@ -40,6 +41,8 @@ const CurrentFights = styled(Button)`
 `
 
 export function HuntingListPage() {
+  const { navigate } = useMemoryNavigator()
+
   return (
     <ArenaTemplate footer={<ArenaFooter isNested />}>
       <>
@@ -51,7 +54,11 @@ export function HuntingListPage() {
               extracKey={(it) => it.title}
               renderRow={(mob, index) => (
                 <>
-                  <MobItem>
+                  <MobItem
+                    onClick={() => {
+                      navigate(routePaths.pve)
+                    }}
+                  >
                     <img src={mob.img} alt="preview" />
                     {mob.title} [{mob.lvl}]
                   </MobItem>
